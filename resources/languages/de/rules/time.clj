@@ -607,7 +607,7 @@
   ; One-sided Intervals
 
   "until <time-of-day>"
-  [#"(?i)vor|bis( zu[rm]?)?" (dim :time)]
+  [#"(?i)\(?(vor|bis( zu[rm]?)?|spätestens)\)?" (dim :time)]
   (merge %2 {:direction :before})
 
   "after <time-of-day>"
