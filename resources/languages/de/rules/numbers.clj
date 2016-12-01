@@ -191,6 +191,6 @@
                (-> %1 :groups first clojure.string/lower-case))}
 
   "ordinal (digits)"
-  #"0*(\d+)(\.| ?(te(n|r|s)?)|(ste(n|r|s)?))"
+  #"(?<!\d|\.)0*(\d+)(\.(?!\d)| ?(te(n|r|s)?)|(ste(n|r|s)?))"
   {:dim :ordinal
    :value (read-string (first (:groups %1)))})  ; read-string not the safest
