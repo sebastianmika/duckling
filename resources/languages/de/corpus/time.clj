@@ -701,6 +701,15 @@
   "01.03."
   (datetime 2013 3 1)
 
+  "10.10"
+  (datetime 2013 10 10)
+
+  "am 10.10"
+  (datetime 2013 10 10)
+
+  "um 10.10"
+  (datetime 2013 2 12 10 10)
+
   "01.03. nachmittags"
   (datetime-interval [2013 3 1 12] [2013 3 1 19])
 

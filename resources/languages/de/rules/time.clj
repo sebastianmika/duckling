@@ -333,7 +333,7 @@
   (assoc (hour (:value %1) (< (:value %1) 12)) :latent true)
 
   "<time-of-day>  o'clock"
-  [#(:full-hour %) #"(?:(?i)uhr|h)(?:\p{P}|\p{Z}|$)"]
+  [#(:full-hour %) #"((?i)uhr|h)(?:\p{P}|\p{Z}|$)"]
   (dissoc %1 :latent)
 
   "at <time-of-day>" ; absorption
@@ -341,7 +341,14 @@
   (dissoc %2 :latent)
 
   "hh:mm"
-  #"(?i)((?:[01]?\d)|(?:2[0-3]))[:.]([0-5]\d)(\s*(?i)uhr|h)?"
+  #"(?i)((?:[01]?\d)|(?:2[0-3])):([0-5]\d)(\s*(?i)uhr|h)?"
+  (-> (hour-minute (Integer/parseInt (first (:groups %1)))
+                   (Integer/parseInt (second (:groups %1)))
+                   false)
+      (assoc :form :time-of-day))
+
+  "hh.mm"
+  #"(?i)((?:[01]?\d)|(?:2[0-3])).([0-5]\d)(\s*(?i)uhr|h)?"
   (-> (hour-minute (Integer/parseInt (first (:groups %1)))
                    (Integer/parseInt (second (:groups %1)))
                    false)
@@ -427,7 +434,7 @@
   (parse-dmy (nth (:groups %1) 2) (second (:groups %1)) (first (:groups %1)) true)
 
   "mm/dd"
-  #"([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\."
+  #"([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)(?:\.|\s|$)"
   (parse-dmy (first (:groups %1)) (second (:groups %1)) nil true)
 
 
