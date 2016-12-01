@@ -546,7 +546,7 @@
     (merge {:precision "exact"}));Check me NO TRANSLATION NECESSARY
 
   "about <time-of-day>" ; about
-  [#"(?i)(um )?zirka|ungefähr|etwa" {:form :time-of-day}]
+  [#"(?i)(um )?zirka|ungefähr|etwa|gegen" {:form :time-of-day}]
   (-> %2
     (dissoc :latent)
     (merge {:precision "approximate"}));Check me NO TRANSLATION NECESSARY
