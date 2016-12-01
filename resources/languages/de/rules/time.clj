@@ -341,7 +341,7 @@
   (dissoc %2 :latent)
 
   "hh:mm"
-  #"(?i)((?:[01]?\d)|(?:2[0-3]))[:.]([0-5]\d)(?:(?i)uhr|h)?"
+  #"(?i)((?:[01]?\d)|(?:2[0-3]))[:.]([0-5]\d)(\s*(?i)uhr|h)?"
   (-> (hour-minute (Integer/parseInt (first (:groups %1)))
                    (Integer/parseInt (second (:groups %1)))
                    false)
@@ -611,7 +611,7 @@
   (merge %2 {:direction :before})
 
   "after <time-of-day>"
-  [#"(?i)nach" (dim :time)]
+  [#"(?i)\(?(nach|ab|frühe?stens)\)?" (dim :time)]
   (merge %2 {:direction :after}))
 
   ; ;; In this special case, the upper limit is exclusive
