@@ -572,7 +572,6 @@
   "bis 2 Uhr nachmittag"
   (datetime 2013 2 12 14 :direction :before)
 
-
   "bis zum ende des tages"
   (datetime 2013 2 13 0 0 :grain :hour :direction :before)
 
@@ -592,7 +591,6 @@
   "um 2"
   (datetime 2013 2 12 14)
 
-
   "morgen um 15 Uhr"
   (datetime 2013 2 13 15)
 
@@ -601,12 +599,10 @@
   "nach 2"
   (datetime 2013 2 12 14 :direction :after)
 
-
   "bis 11 uhr"
   "bis 11h vormittags"
   "bis 11 am vormittag"
   (datetime 2013 2 12 11 :direction :before)
-
 
   "am nachmittag"
   (datetime-interval [2013 2 12 12] [2013 2 12 19])
@@ -635,7 +631,137 @@
 
   "10.12."
   (datetime 2013 12 10)
+
   "18:30h - 19:00h"
   (datetime-interval [2013 2 12 18 30] [2013 2 12 19 1])
+
+  ; ----------------------------------------
+  ; CT CASES
+  ; ----------------------------------------
+  "ab 18 Uhr"
+  (datetime 2013 2 12 18 :direction :after)
+
+  "ab 17h00"
+  (datetime 2013 2 12 17 :direction :after)
+
+  "(frühestens) 18 Uhr"
+  (datetime 2013 2 12 18 :direction :after)
+
+  "frühestens 18 Uhr"
+  (datetime 2013 2 12 18 :direction :after)
+
+  "frühestens 18:00 Uhr"
+  (datetime 2013 2 12 18 0 :direction :after)
+
+  "frühstens 18:00 Uhr"
+  (datetime 2013 2 12 18 0 :direction :after)
+
+  "(spätestens) 18 Uhr"
+  (datetime 2013 2 12 18 :direction :before)
+
+  "spätestens 18 Uhr"
+  (datetime 2013 2 12 18 :direction :before)
+
+  "spätestens 18:00 Uhr"
+  (datetime 2013 2 12 18 0 :direction :before)
+
+  "11.02."
+  (datetime 2013 2 11)
+
+  "15/16 Uhr"
+  (datetime-interval [2013 2 12 15] [2013 2 12 16 1])
+
+  "30.05"
+  (datetime 2013 5 30)
+
+  "(späten) Nachmittag"
+  (datetime-interval [2013 2 12 00] [2013 2 12 19])
+
+  "01. August 2016"
+  (datetime 2016 8 1)
+
+  "01.01."
+  (datetime 2014 1 1)
+
+  "01.02. - 03.02.2016"
+  (datetime-interval [2016 2 1] [2016 2 4])
+
+  "01.02. 08:10 Uhr"
+  (datetime 2013 2 1 8 10)
+
+  "01.02.1973"
+  (datetime 1973 2 1)
+
+  "01.02.2016 14:45"
+  (datetime 2016 2 1 14 45)
+
+  "01.03"
+  (datetime 2013 3 1)
+
+  "01.03."
+  (datetime 2013 3 1)
+
+  "01.03. nachmittags"
+  (datetime-interval [2013 3 1 12] [2013 3 1 19])
+
+  "01.04. gegen 18Uhr"
+  (datetime 2013 4 1 18)
+
+  "01.04.2016 16:50 Uhr"
+  (datetime 2016 4 1 16 50)
+
+  "01.06.-03.06"
+  (datetime-interval [2013 6 1] [2013 6 4])
+
+  "01.06.79"
+  (datetime 1979 6 1)
+
+  "03.01.2016 um 09:55 Uhr"
+  (datetime 2016 1 3 9 55)
+
+  "03.03.2016 15:54"
+  (datetime 2016 3 3 15 54)
+
+  "03.03.2016, 07:30"
+  (datetime 2016 3 3 7 30)
+
+  "03.10. Montag"
+  (datetime 2016 10 3)
+
+  "03.12. abends"
+  (datetime-interval [2013 12 3 18] [2013 12 4])
+
+  "03.02.2016 mittags"
+  (datetime-interval [2016 2 3 12] [2016 2 3 14])
+
+  "04.03.2016 9 - 10 Uhr"
+  (datetime-interval [2013 3 4 9] [2013 3 4 10 1])
+
+  "04.03.2016 9-10 Uhr"
+  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+
+  "04.03.2016 9-10Uhr"
+  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+
+  "04.03.2016 ca. 9 - 10 Uhr"
+  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+
+  "04.03.2016 ca. 9-10 Uhr"
+  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+
+  "04.03.2016 ca. 9-10Uhr"
+  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+
+  "05.01. morgens  - 07.01. abends"
+  (datetime-interval [2013 1 4 3] [2013 8 1 0])
+
+  "06.06 - 10 Uhr"
+  (datetime 2013 6 6 10)
+
+  "06.06.  08:10 Uhr"
+  (datetime 2013 6 6 8 10)
+
+  "06.12.2015 gegen 9:30Uhr"
+  (datetime-interval [2015 12 6 9] [2015 12 6 10 1])
 )
 
