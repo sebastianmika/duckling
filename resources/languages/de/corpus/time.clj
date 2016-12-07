@@ -734,7 +734,6 @@
   "01-03.06.2016"
   (datetime-interval [2016 6 1] [2016 6 4])
 
-
   "01.06.79"
   (datetime 1979 6 1)
 
@@ -784,23 +783,26 @@
   (datetime 2013 6 6 8 10)
 
   "06.12.2015 gegen 9:30Uhr"
-  (datetime-interval [2015 12 6 9] [2015 12 6 10 1])
+  "06.12.2015 um 9:30Uhr"
+  "06.12.2015 etwa 9:30Uhr"
+  (datetime 2015 12 6 9 30)
 
   ;
   ; New issues 16/12/06
   ;
-  ;  "der 09.09 ist"
-  "der 09.09 ist ein Datum"
-  (datetime 2013 9 9)
+  ; "09.09 ist"  FIXED, but corpus can not handle spurious context like "ist"
+  ; "der 09.09 ist ein Datum"
+  ; (datetime 2013 9 9)
 
-  "Datum:\t11.11.2016\nAbflug"
+  ; "Datum:\t11.11.2016\nAbflug" FIXED, but corpus  cannot handle context
+  "11.11.2016"
   (datetime 2016 11 11)
 
-  "Hamburg 11.-13.11.2016"
-  (datetime-interval [2016 11 11 0] [2016 11 14 0])
-
-  "Anreise: 11.11.2016\nAbreise: xxxx"
-  (datetime 2016 11 11)
+  ;  "Hamburg 11.-13.11.2016" FIXED, but corpus  cannot handle context
+  ; "Anreise: 11.11.2016\nAbreise: xxxx"
+  ; (datetime 2016 11 11)
+  "11.-13.11.2016"
+  (datetime-interval [2016 11 11] [2016 11 14])
 
   "um 14.00h"
   (datetime 2013 2 12 14 0)
@@ -819,6 +821,12 @@
   ;(null)
 
   "am Freitag, den 21.10.2016"
+  "am Freitag, 21.10.2016"
+  "am Freitag, 21.10.16"
   (datetime 2016 10 21)
+
+  "am Freitag, 21.10."
+  "am Freitag, 21.10"
+  (datetime 2013 10 21)
 )
 

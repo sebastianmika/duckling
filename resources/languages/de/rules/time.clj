@@ -440,6 +440,9 @@
   #"([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)(?:\.|\s+|$)"
   (parse-dmy (first (:groups %1)) (second (:groups %1)) nil true)
 
+  "am? named-day, den? dd.mm.yyyy"
+  [{:form :day-of-week} #",( den)?" (dim :time)] 
+  %3
 
   ; Part of day (morning, evening...). They are intervals.
 
