@@ -347,7 +347,7 @@
 
 
   "<time-of-day> o'clock"
-  [{:form :time-of-day} #"(?i)o.?clock"]
+  [{:form :time-of-day} #"(?i)o.?clock|o/c"]
   (dissoc %1 :latent)
 
   "hh:mm"
@@ -451,15 +451,15 @@
   ; Part of day (morning, evening...). They are intervals.
 
   "morning" ;; TODO "3am this morning" won't work since morning starts at 4...
-  [#"(?i)morning"]
+  [#"(?i)(late\s+|early\s+)?morning"]
   (assoc (interval (hour 4 false) (hour 12 false) false) :form :part-of-day :latent true)
 
   "afternoon"
-  [#"(?i)after ?noo?n"]
+  [#"(?i)(late\s+|early\s+)?after ?noo?n"]
   (assoc (interval (hour 12 false) (hour 19 false) false) :form :part-of-day :latent true)
 
   "evening|night"
-  [#"(?i)evening|night"]
+  [#"(?i)(late\s+|early\s+)?(evening|night)"]
   (assoc (interval (hour 18 false) (hour 0 false) false) :form :part-of-day :latent true)
 
   "lunch"
