@@ -755,4 +755,16 @@
   "March"
   "in March"
   (datetime 2013 3)
+
+  "07.09.2016"
+  (datetime 2016 9 7)
+
+  "Saturday, Dec 12"
+  (datetime 2016 12 12)
+
+  "Mon 2105-0740"
+  (datetime-interval [2013 2 18 12 05] [2013 2 19 7 40])
+
+  "Aug 11 2000-2110"
+  (datetime-interval [2013 8 11 20 0] [2013 8 11 21 10])
 )

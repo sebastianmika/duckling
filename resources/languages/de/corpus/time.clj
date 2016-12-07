@@ -54,7 +54,7 @@
   (datetime 2013 2 16)
 
   "sonntag"
-  "so."
+  "So."  ; we only do capital S for sunday to avoid collissions with "so oder so"
   (datetime 2013 2 17)
 
   "1 märz"
@@ -597,6 +597,7 @@
   "nach 14 Uhr"
   "nach 14h"
   "nach 2"
+  "ab 14Uhr"
   (datetime 2013 2 12 14 :direction :after)
 
   "bis 11 uhr"
@@ -671,6 +672,9 @@
   "15/16 Uhr"
   (datetime-interval [2013 2 12 15] [2013 2 12 16 1])
 
+  "am 14./15.10"
+  (datetime-interval [2013 10 14 0] [2013 10 16 0])
+
   "30.05"
   (datetime 2013 5 30)
 
@@ -720,7 +724,16 @@
   (datetime 2016 4 1 16 50)
 
   "01.06.-03.06"
+  "01.-03.06."
+  "01-03.06."
   (datetime-interval [2013 6 1] [2013 6 4])
+
+  "01.-03.06.16"
+  "01.-03.06.2016"
+  "01-03.06.16"
+  "01-03.06.2016"
+  (datetime-interval [2016 6 1] [2016 6 4])
+
 
   "01.06.79"
   (datetime 1979 6 1)
@@ -772,5 +785,40 @@
 
   "06.12.2015 gegen 9:30Uhr"
   (datetime-interval [2015 12 6 9] [2015 12 6 10 1])
+
+  ;
+  ; New issues 16/12/06
+  ;
+  ;  "der 09.09 ist"
+  "der 09.09 ist ein Datum"
+  (datetime 2013 9 9)
+
+  "Datum:\t11.11.2016\nAbflug"
+  (datetime 2016 11 11)
+
+  "Hamburg 11.-13.11.2016"
+  (datetime-interval [2016 11 11 0] [2016 11 14 0])
+
+  "Anreise: 11.11.2016\nAbreise: xxxx"
+  (datetime 2016 11 11)
+
+  "um 14.00h"
+  (datetime 2013 2 12 14 0)
+
+  "ab 21.00h"
+  (datetime 2013 2 12 21 0 :direction :after)
+
+  "am 6.12.2016"
+  (datetime 2016 12 6)
+
+  ;"80,-"
+  ;"bis 80,-"
+  ;"ab 80,-"
+  ;"ab 80 EUR"
+  ;"bis 80 €"
+  ;(null)
+
+  "am Freitag, den 21.10.2016"
+  (datetime 2016 10 21)
 )
 
