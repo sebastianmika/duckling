@@ -52,8 +52,11 @@
   #"(?i)samstags?|sa\.?"
   (day-of-week 6)
 
+  ; 'so' is very common in german and in 99% of the cases not
+  ; sunday. "so." is less likely, but still for our case it is
+  ; extremely unlikely to find a sentence like "... am so."
   "named-day"
-  #"(?i)sonntags?|so\.?"
+  #"(?i)sonntags?|(?-i)So\."
   (day-of-week 7)
 
   "named-month"
@@ -288,7 +291,7 @@
   (assoc (day-of-month (:value %1)) :latent true)
 
   "the <day-of-month> (non ordinal)" ; this one is latent
-  [#"(?i)der" (integer 1 31)]
+  [#"(?i)der" (integer 1 31) #"(?:^\d)"]
   (assoc (day-of-month (:value %2)) :latent true)
 
   "<named-month> <day-of-month> (ordinal)" ; march 12th
@@ -333,7 +336,7 @@
   (assoc (hour (:value %1) (< (:value %1) 12)) :latent true)
 
   "<time-of-day>  o'clock"
-  [#(:full-hour %) #"((?i)uhr|h)(?:\p{P}|\p{Z}|$)"]
+  [#(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
   (dissoc %1 :latent)
 
   "at <time-of-day>" ; absorption
@@ -524,9 +527,8 @@
 
 
   ; Time zones
-
   "timezone"
-  #"(?i)(YEKT|YEKST|YAPT|YAKT|YAKST|WT|WST|WITA|WIT|WIB|WGT|WGST|WFT|WEZ|WET|WESZ|WEST|WAT|WAST|VUT|VLAT|VLAST|VET|UZT|UYT|UYST|UTC|ULAT|TVT|TMT|TLT|TKT|TJT|TFT|TAHT|SST|SRT|SGT|SCT|SBT|SAST|SAMT|RET|PYT|PYST|PWT|PT|PST|PONT|PMST|PMDT|PKT|PHT|PHOT|PGT|PETT|PETST|PET|PDT|OMST|OMSST|NZST|NZDT|NUT|NST|NPT|NOVT|NOVST|NFT|NDT|NCT|MYT|MVT|MUT|MST|MSK|MSD|MMT|MHT|MEZ|MESZ|MDT|MAWT|MART|MAGT|MAGST|LINT|LHST|LHDT|KUYT|KST|KRAT|KRAST|KGT|JST|IST|IRST|IRKT|IRKST|IRDT|IOT|IDT|ICT|HOVT|HNY|HNT|HNR|HNP|HNE|HNC|HNA|HLV|HKT|HAY|HAT|HAST|HAR|HAP|HAE|HADT|HAC|HAA|GYT|GST|GMT|GILT|GFT|GET|GAMT|GALT|FNT|FKT|FKST|FJT|FJST|ET|EST|EGT|EGST|EET|EEST|EDT|ECT|EAT|EAST|EASST|DAVT|ChST|CXT|CVT|CST|COT|CLT|CLST|CKT|CHAST|CHADT|CET|CEST|CDT|CCT|CAT|CAST|BTT|BST|BRT|BRST|BOT|BNT|AZT|AZST|AZOT|AZOST|AWST|AWDT|AST|ART|AQTT|ANAT|ANAST|AMT|AMST|ALMT|AKST|AKDT|AFT|AEST|AEDT|ADT|ACST|ACDT)"
+  #"((?:(?i)(?:YEKT|YEKST|YAPT|YAKT|YAKST|WT|WST|WITA|WIT|WIB|WGT|WGST|WFT|WEZ|WET|WESZ|WEST|WAT|WAST|VUT|VLAT|VLAST|VET|UZT|UYT|UYST|UTC|ULAT|TVT|TMT|TLT|TKT|TJT|TFT|TAHT|SST|SRT|SGT|SCT|SBT|SAST|SAMT|RET|PYT|PYST|PWT|PT|PST|PONT|PMST|PMDT|PKT|PHT|PHOT|PGT|PETT|PETST|PET|PDT|OMST|OMSST|NZST|NZDT|NUT|NST|NPT|NOVT|NOVST|NFT|NDT|NCT|MYT|MVT|MUT|MST|MSK|MSD|MMT|MHT|MEZ|MESZ|MDT|MAWT|MART|MAGT|MAGST|LINT|LHST|LHDT|KUYT|KST|KRAT|KRAST|KGT|JST|IRST|IRKT|IRKST|IRDT|IOT|IDT|ICT|HOVT|HNY|HNT|HNR|HNP|HNE|HNC|HNA|HLV|HKT|HAY|HAT|HAST|HAR|HAP|HAE|HADT|HAC|HAA|GYT|GST|GMT|GILT|GFT|GET|GAMT|GALT|FNT|FKT|FKST|FJT|FJST|ET|EST|EGT|EGST|EET|EEST|EDT|ECT|EAT|EAST|EASST|DAVT|ChST|CXT|CVT|CST|COT|CLT|CLST|CKT|CHAST|CHADT|CET|CEST|CDT|CCT|CAT|CAST|BTT|BST|BRT|BRST|BOT|BNT|AZT|AZST|AZOT|AZOST|AWST|AWDT|AST|ART|AQTT|ANAT|ANAST|AMT|AMST|ALMT|AKST|AKDT|AFT|AEST|AEDT|ADT|ACST|ACDT))|(?:IST))"
   {:dim :timezone
    :value (-> %1 :groups first clojure.string/upper-case)}
 
@@ -571,6 +573,18 @@
   [ #"([012]?\d|30|31)(ter|\.)?" #"\-|bis" #"([012]?\d|30|31)(ter|\.)?" {:form :month}]
   (interval (intersect %4 (day-of-month (Integer/parseInt (-> %1 :groups first))))
             (intersect %4 (day-of-month (Integer/parseInt (-> %3 :groups first))))
+            true)
+
+  "dd. - dd.mm.yyyy"
+  #"([012]?[1-9]|10|20|30|31)\.?\s*(\-| bis )\s*([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\.(\d{2,4})"
+  (interval (parse-dmy (first (:groups %1)) (nth (:groups %1) 3) (nth (:groups %1) 4) true)
+            (parse-dmy (nth (:groups %1) 2) (nth (:groups %1) 3) (nth (:groups %1) 4) true)
+            true)
+
+  "dd. - dd.mm."
+  #"([012]?[1-9]|10|20|30|31)\.?\s*(\-| bis )\s*([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\."
+  (interval (parse-dmy (nth (:groups %1) 0) (nth (:groups %1) 3) nil true)
+            (parse-dmy (nth (:groups %1) 2) (nth (:groups %1) 3) nil true)
             true)
 
   ; Blocked for :latent time. May need to accept certain latents only, like hours
