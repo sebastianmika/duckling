@@ -672,10 +672,11 @@
   (datetime 2013 2 11)
 
   "15/16 Uhr"
-  (datetime-interval [2013 2 12 15] [2013 2 12 16 1])
+  (datetime-interval [2013 2 12 15] [2013 2 12 16])
 
+  "am 14./15.10."
   "am 14./15.10"
-  (datetime-interval [2013 10 14 0] [2013 10 16 0])
+  (datetime-interval [2013 10 14] [2013 10 16])
 
   "30.05"
   (datetime 2013 5 30)

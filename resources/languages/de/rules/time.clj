@@ -583,7 +583,7 @@
             true)
 
   "dd. - dd.mm."
-  #"([012]?[1-9]|10|20|30|31)\.?\s*(\-| bis )\s*([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\."
+  #"([012]?[1-9]|10|20|30|31)\.?\s*(\-|/| bis )\s*([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\."
   (interval (parse-dmy (nth (:groups %1) 0) (nth (:groups %1) 3) nil true)
             (parse-dmy (nth (:groups %1) 2) (nth (:groups %1) 3) nil true)
             true)
@@ -609,7 +609,7 @@
   (interval %1 %3 false)
 
   "<time-of-day> - <time-of-day> o'clock"
-  [#(:full-hour %) #"\-|bis" #(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
+  [#(:full-hour %) #"\-|bis|/" #(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
   (interval %1 %3 false)
 
   "from <time-of-day> - <time-of-day> (interval)"
