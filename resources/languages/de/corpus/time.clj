@@ -546,9 +546,11 @@
   "am Donnerstag von 9:30 - 11:00"
   "am Donnerstag zwischen 9:30 und 11:00"
   "Donnerstag 9:30 - 11:00"
-  "am Donnerstag nach 9:30 aber vor 11:00"
   "Donnerstag von 9:30 bis 11:00"
   (datetime-interval [2013 2 14 9 30] [2013 2 14 11 1])
+
+  "am Donnerstag nach 9:30 aber vor 11:00"
+  (datetime-interval [2013 2 14 9 30] [2013 2 14 11 0])
 
   "Donnerstag Vormittag von 9 bis 11"
   (datetime-interval [2013 2 14 9] [2013 2 14 12])
@@ -670,16 +672,17 @@
   (datetime 2013 2 11)
 
   "15/16 Uhr"
-  (datetime-interval [2013 2 12 15] [2013 2 12 16 1])
+  (datetime-interval [2013 2 12 15] [2013 2 12 16])
 
+  "am 14./15.10."
   "am 14./15.10"
-  (datetime-interval [2013 10 14 0] [2013 10 16 0])
+  (datetime-interval [2013 10 14] [2013 10 16])
 
   "30.05"
   (datetime 2013 5 30)
 
   "(späten) Nachmittag"
-  (datetime-interval [2013 2 12 00] [2013 2 12 19])
+  (datetime-interval [2013 2 12 12] [2013 2 12 19])
 
   "01. August 2016"
   (datetime 2016 8 1)
@@ -734,7 +737,6 @@
   "01-03.06.2016"
   (datetime-interval [2016 6 1] [2016 6 4])
 
-
   "01.06.79"
   (datetime 1979 6 1)
 
@@ -756,26 +758,23 @@
   "03.02.2016 mittags"
   (datetime-interval [2016 2 3 12] [2016 2 3 14])
 
+  "9-10Uhr"
+  (datetime-interval [2013 2 12 9] [2013 2 12 10]) 
+
+  "9:30-10Uhr"
+  (datetime-interval [2013 2 12 9 30] [2013 2 12 10]) 
+
   "04.03.2016 9 - 10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 10 1])
-
   "04.03.2016 9-10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 9-10Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 ca. 9 - 10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 ca. 9-10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 ca. 9-10Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+  "04.03.2016 ca 9-10Uhr"
+  (datetime-interval [2016 3 4 9] [2016 3 4 10])
 
   "05.01. morgens  - 07.01. abends"
-  (datetime-interval [2013 1 4 3] [2013 8 1 0])
+  (datetime-interval [2014 1 5 3] [2014 1 8 0])
 
   "06.06 - 10 Uhr"
   (datetime 2013 6 6 10)
@@ -784,23 +783,26 @@
   (datetime 2013 6 6 8 10)
 
   "06.12.2015 gegen 9:30Uhr"
-  (datetime-interval [2015 12 6 9] [2015 12 6 10 1])
+  "06.12.2015 um 9:30Uhr"
+  "06.12.2015 etwa 9:30Uhr"
+  (datetime 2015 12 6 9 30)
 
   ;
   ; New issues 16/12/06
   ;
-  ;  "der 09.09 ist"
-  "der 09.09 ist ein Datum"
-  (datetime 2013 9 9)
+  ; "09.09 ist"  FIXED, but corpus can not handle spurious context like "ist"
+  ; "der 09.09 ist ein Datum"
+  ; (datetime 2013 9 9)
 
-  "Datum:\t11.11.2016\nAbflug"
+  ; "Datum:\t11.11.2016\nAbflug" FIXED, but corpus  cannot handle context
+  "11.11.2016"
   (datetime 2016 11 11)
 
-  "Hamburg 11.-13.11.2016"
-  (datetime-interval [2016 11 11 0] [2016 11 14 0])
-
-  "Anreise: 11.11.2016\nAbreise: xxxx"
-  (datetime 2016 11 11)
+  ;  "Hamburg 11.-13.11.2016" FIXED, but corpus  cannot handle context
+  ; "Anreise: 11.11.2016\nAbreise: xxxx"
+  ; (datetime 2016 11 11)
+  "11.-13.11.2016"
+  (datetime-interval [2016 11 11] [2016 11 14])
 
   "um 14.00h"
   (datetime 2013 2 12 14 0)
@@ -819,6 +821,12 @@
   ;(null)
 
   "am Freitag, den 21.10.2016"
+  "am Freitag, 21.10.2016"
+  "am Freitag, 21.10.16"
   (datetime 2016 10 21)
+
+  "am Freitag, 21.10."
+  "am Freitag, 21.10"
+  (datetime 2013 10 21)
 )
 

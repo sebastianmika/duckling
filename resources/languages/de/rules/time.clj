@@ -335,7 +335,7 @@
   (integer 0 23)
   (assoc (hour (:value %1) (< (:value %1) 12)) :latent true)
 
-  "<time-of-day>  o'clock"
+  "<time-of-day> o'clock"
   [#(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
   (dissoc %1 :latent)
 
@@ -440,25 +440,26 @@
   #"([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)(?:\.|\s+|$)"
   (parse-dmy (first (:groups %1)) (second (:groups %1)) nil true)
 
+  "am? named-day, den? dd.mm.yyyy"
+  [{:form :day-of-week} #",( den)?" (dim :time)] 
+  %3
 
   ; Part of day (morning, evening...). They are intervals.
 
   "morning" ;; TODO "3am this morning" won't work since morning starts at 4...
-  [#"(?i)morgens|(in der )?früh|vor ?mittags?|am morgen"]
+  [#"(?i)morgens|(in der )?früh|vor ?mittags?|am( frühen| späten)? morgen"]
   (assoc (interval (hour 3 false) (hour 12 false) false) :form :part-of-day :latent true)
 
   "afternoon"
-  [#"(?i)nach ?mittags?"]
+  [#"(?i)(\(?(frühe(n|r)|späte(n|r))\)? )?nach ?mittags?"]
   (assoc (interval (hour 12 false) (hour 19 false) false) :form :part-of-day :latent true)
 
-
   "evening"
-  [#"(?i)abends?"]
+  [#"(?i)(\(?(frühe(n|r)|späte(n|r))\)? )?abends?"]
   (assoc (interval (hour 18 false) (hour 0 false) false) :form :part-of-day :latent true)
 
-
   "night"
-  [#"(?i)nachts?"]
+  [#"(?i)(\(?(frühe(n|r)|späte(n|r))\)? )?nachts?"]
   (assoc (interval (hour 0 false) (hour 4 false) false) :form :part-of-day :latent true)
 
   "lunch"
@@ -466,7 +467,7 @@
   (assoc (interval (hour 12 false) (hour 14 false) false) :form :part-of-day :latent true)
 
   "in|during the <part-of-day>" ;; removes latent
-  [#"(?i)(in|an|am|wäh?rend)( der| dem| des)?" {:form :part-of-day}]
+  [#"(?i)(in|an|am|wäh?rend)( der| dem| des)?( frühen| späten)?" {:form :part-of-day}]
   (dissoc %2 :latent)
 
   "this <part-of-day>"
@@ -543,7 +544,7 @@
   ;-  shouldn't remove latency, except maybe -ish
 
   "<time-of-day> approximately" ; 7ish
-  [{:form :time-of-day} #"(?i)(um )?zirka|ungefähr|etwa"]
+  [{:form :time-of-day} #"(?i)(um )?(zirka|ca\.?)|ungefähr|etwa"]
   (-> %1
     (dissoc :latent)
     (merge {:precision "approximate"}));Check me NO TRANSLATION NECESSARY
@@ -555,7 +556,7 @@
     (merge {:precision "exact"}));Check me NO TRANSLATION NECESSARY
 
   "about <time-of-day>" ; about
-  [#"(?i)(um )?zirka|ungefähr|etwa|gegen" {:form :time-of-day}]
+  [#"(?i)(um )?(zirka|ca\.?)|ungefähr|etwa|gegen" {:form :time-of-day}]
   (-> %2
     (dissoc :latent)
     (merge {:precision "approximate"}));Check me NO TRANSLATION NECESSARY
@@ -582,7 +583,7 @@
             true)
 
   "dd. - dd.mm."
-  #"([012]?[1-9]|10|20|30|31)\.?\s*(\-| bis )\s*([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\."
+  #"([012]?[1-9]|10|20|30|31)\.?\s*(\-|/| bis )\s*([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\."
   (interval (parse-dmy (nth (:groups %1) 0) (nth (:groups %1) 3) nil true)
             (parse-dmy (nth (:groups %1) 2) (nth (:groups %1) 3) nil true)
             true)
@@ -605,15 +606,19 @@
 
   "<time-of-day> - <time-of-day> (interval)"
   [#(and (= :time-of-day (:form %)) (not (:latent %))) #"\-|bis" {:form :time-of-day}] ; Prevent set alarm 1 to 5pm
-  (interval %1 %3 true)
+  (interval %1 %3 false)
+
+  "<time-of-day> - <time-of-day> o'clock"
+  [#(:full-hour %) #"\-|bis|/" #(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
+  (interval %1 %3 false)
 
   "from <time-of-day> - <time-of-day> (interval)"
   [#"(?i)(von|nach|ab|frühestens (um)?)" {:form :time-of-day} #"((noch|aber|jedoch)? vor)|\-|bis" {:form :time-of-day}]
-  (interval %2 %4 true)
+  (interval %2 %4 false)
 
   "between <time-of-day> and <time-of-day> (interval)"
   [#"(?i)zwischen" {:form :time-of-day} #"und" {:form :time-of-day}]
-  (interval %2 %4 true)
+  (interval %2 %4 false)
 
   ; Specific for within duration... Would need to be reworked
   "within <duration>"
