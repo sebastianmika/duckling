@@ -447,21 +447,19 @@
   ; Part of day (morning, evening...). They are intervals.
 
   "morning" ;; TODO "3am this morning" won't work since morning starts at 4...
-  [#"(?i)morgens|(in der )?früh|vor ?mittags?|am morgen"]
+  [#"(?i)morgens|(in der )?früh|vor ?mittags?|am( frühen| späten)? morgen"]
   (assoc (interval (hour 3 false) (hour 12 false) false) :form :part-of-day :latent true)
 
   "afternoon"
-  [#"(?i)nach ?mittags?"]
+  [#"(?i)(\(?(frühe(n|r)|späte(n|r))\)? )?nach ?mittags?"]
   (assoc (interval (hour 12 false) (hour 19 false) false) :form :part-of-day :latent true)
 
-
   "evening"
-  [#"(?i)abends?"]
+  [#"(?i)(\(?(frühe(n|r)|späte(n|r))\)? )?abends?"]
   (assoc (interval (hour 18 false) (hour 0 false) false) :form :part-of-day :latent true)
 
-
   "night"
-  [#"(?i)nachts?"]
+  [#"(?i)(\(?(frühe(n|r)|späte(n|r))\)? )?nachts?"]
   (assoc (interval (hour 0 false) (hour 4 false) false) :form :part-of-day :latent true)
 
   "lunch"
@@ -469,7 +467,7 @@
   (assoc (interval (hour 12 false) (hour 14 false) false) :form :part-of-day :latent true)
 
   "in|during the <part-of-day>" ;; removes latent
-  [#"(?i)(in|an|am|wäh?rend)( der| dem| des)?" {:form :part-of-day}]
+  [#"(?i)(in|an|am|wäh?rend)( der| dem| des)?( frühen| späten)?" {:form :part-of-day}]
   (dissoc %2 :latent)
 
   "this <part-of-day>"

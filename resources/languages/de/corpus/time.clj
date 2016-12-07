@@ -681,7 +681,7 @@
   (datetime 2013 5 30)
 
   "(späten) Nachmittag"
-  (datetime-interval [2013 2 12 00] [2013 2 12 19])
+  (datetime-interval [2013 2 12 12] [2013 2 12 19])
 
   "01. August 2016"
   (datetime 2016 8 1)
@@ -773,7 +773,7 @@
   (datetime-interval [2016 3 4 9] [2016 3 4 10])
 
   "05.01. morgens  - 07.01. abends"
-  (datetime-interval [2013 1 4 3] [2013 8 1 0])
+  (datetime-interval [2014 1 5 3] [2014 1 8 0])
 
   "06.06 - 10 Uhr"
   (datetime 2013 6 6 10)
