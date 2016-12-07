@@ -335,7 +335,7 @@
   (integer 0 23)
   (assoc (hour (:value %1) (< (:value %1) 12)) :latent true)
 
-  "<time-of-day>  o'clock"
+  "<time-of-day> o'clock"
   [#(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
   (dissoc %1 :latent)
 
@@ -546,7 +546,7 @@
   ;-  shouldn't remove latency, except maybe -ish
 
   "<time-of-day> approximately" ; 7ish
-  [{:form :time-of-day} #"(?i)(um )?zirka|ungefähr|etwa"]
+  [{:form :time-of-day} #"(?i)(um )?(zirka|ca\.?)|ungefähr|etwa"]
   (-> %1
     (dissoc :latent)
     (merge {:precision "approximate"}));Check me NO TRANSLATION NECESSARY
@@ -558,7 +558,7 @@
     (merge {:precision "exact"}));Check me NO TRANSLATION NECESSARY
 
   "about <time-of-day>" ; about
-  [#"(?i)(um )?zirka|ungefähr|etwa|gegen" {:form :time-of-day}]
+  [#"(?i)(um )?(zirka|ca\.?)|ungefähr|etwa|gegen" {:form :time-of-day}]
   (-> %2
     (dissoc :latent)
     (merge {:precision "approximate"}));Check me NO TRANSLATION NECESSARY
@@ -608,15 +608,19 @@
 
   "<time-of-day> - <time-of-day> (interval)"
   [#(and (= :time-of-day (:form %)) (not (:latent %))) #"\-|bis" {:form :time-of-day}] ; Prevent set alarm 1 to 5pm
-  (interval %1 %3 true)
+  (interval %1 %3 false)
+
+  "<time-of-day> - <time-of-day> o'clock"
+  [#(:full-hour %) #"\-|bis" #(:full-hour %) #"((?i)uhr|h)(?=\p{P}|\p{Z}|$)"]
+  (interval %1 %3 false)
 
   "from <time-of-day> - <time-of-day> (interval)"
   [#"(?i)(von|nach|ab|frühestens (um)?)" {:form :time-of-day} #"((noch|aber|jedoch)? vor)|\-|bis" {:form :time-of-day}]
-  (interval %2 %4 true)
+  (interval %2 %4 false)
 
   "between <time-of-day> and <time-of-day> (interval)"
   [#"(?i)zwischen" {:form :time-of-day} #"und" {:form :time-of-day}]
-  (interval %2 %4 true)
+  (interval %2 %4 false)
 
   ; Specific for within duration... Would need to be reworked
   "within <duration>"

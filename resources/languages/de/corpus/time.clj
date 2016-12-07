@@ -546,9 +546,11 @@
   "am Donnerstag von 9:30 - 11:00"
   "am Donnerstag zwischen 9:30 und 11:00"
   "Donnerstag 9:30 - 11:00"
-  "am Donnerstag nach 9:30 aber vor 11:00"
   "Donnerstag von 9:30 bis 11:00"
   (datetime-interval [2013 2 14 9 30] [2013 2 14 11 1])
+
+  "am Donnerstag nach 9:30 aber vor 11:00"
+  (datetime-interval [2013 2 14 9 30] [2013 2 14 11 0])
 
   "Donnerstag Vormittag von 9 bis 11"
   (datetime-interval [2013 2 14 9] [2013 2 14 12])
@@ -755,23 +757,20 @@
   "03.02.2016 mittags"
   (datetime-interval [2016 2 3 12] [2016 2 3 14])
 
+  "9-10Uhr"
+  (datetime-interval [2013 2 12 9] [2013 2 12 10]) 
+
+  "9:30-10Uhr"
+  (datetime-interval [2013 2 12 9 30] [2013 2 12 10]) 
+
   "04.03.2016 9 - 10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 10 1])
-
   "04.03.2016 9-10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 9-10Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 ca. 9 - 10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 ca. 9-10 Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
-
   "04.03.2016 ca. 9-10Uhr"
-  (datetime-interval [2013 3 4 9] [2013 3 4 11])
+  "04.03.2016 ca 9-10Uhr"
+  (datetime-interval [2016 3 4 9] [2016 3 4 10])
 
   "05.01. morgens  - 07.01. abends"
   (datetime-interval [2013 1 4 3] [2013 8 1 0])
