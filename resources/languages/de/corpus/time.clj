@@ -819,6 +819,7 @@
   ;"ab 80 EUR"
   ;"bis 80 €"
   ;(null)
+  ;
 
   "am Freitag, den 21.10.2016"
   "am Freitag, 21.10.2016"
