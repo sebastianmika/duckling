@@ -829,5 +829,7 @@
   "am Freitag, 21.10."
   "am Freitag, 21.10"
   (datetime 2013 10 21)
-)
 
+  "18:30h - 19:00h"
+  (datetime-interval [2013 2 12 18 30] [2013 2 12 19 1])
+)
