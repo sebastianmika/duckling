@@ -356,6 +356,18 @@
                (Integer/parseInt (second (:groups %1)))
                true)
 
+  "hhmm"
+  #"(?i)((?:[01]?\d)|(?:2[0-3]))([0-5]\d)"
+  (hour-minute (Integer/parseInt (first (:groups %1)))
+               (Integer/parseInt (second (:groups %1)))
+               false)
+
+  "hhmm 2"
+  #"(?i)(2[0-3])([0-5]\d)"
+  (hour-minute (Integer/parseInt (first (:groups %1)))
+               (Integer/parseInt (second (:groups %1)))
+               true)
+
   "hh:mm:ss"
   #"(?i)((?:[01]?\d)|(?:2[0-3]))[:.]([0-5]\d)[:.]([0-5]\d)"
   (hour-minute-second (Integer/parseInt (first (:groups %1)))
@@ -439,6 +451,10 @@
   #"(0?[1-9]|1[0-2])[/-](3[01]|[12]\d|0?[1-9])[-/](\d{2,4})"
   (parse-dmy (second (:groups %1)) (first (:groups %1)) (nth (:groups %1) 2) true)
 
+  "dd.mm.yyyy"
+  #"([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)\.(\d{2,4})"
+  (parse-dmy (first (:groups %1)) (second (:groups %1)) (nth (:groups %1) 2) true)
+
   "yyyy-mm-dd"
   #"(\d{2,4})-(0?[1-9]|1[0-2])-(3[01]|[12]\d|0?[1-9])"
   (parse-dmy (nth (:groups %1) 2) (second (:groups %1)) (first (:groups %1)) true)
@@ -447,6 +463,13 @@
   #"(0?[1-9]|1[0-2])/(3[01]|[12]\d|0?[1-9])"
   (parse-dmy (second (:groups %1)) (first (:groups %1)) nil true)
 
+  "dd/mm"
+  #"(3[01]|[12]\d|0?[1-9])/(0?[1-9]|1[0-2])"
+  (parse-dmy (first (:groups %1)) (second (:groups %1)) nil true)
+
+  "dd.mm"
+  #"([012]?[1-9]|10|20|30|31)\.(0?[1-9]|10|11|12)(?:\.|\s+|$)"
+  (parse-dmy (first (:groups %1)) (second (:groups %1)) nil true)
 
   ; Part of day (morning, evening...). They are intervals.
 

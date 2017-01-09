@@ -772,4 +772,53 @@
 
   "Aug 11 2000-2110"
   (datetime-interval [2013 8 11 20 0] [2013 8 11 21 10])
+
+  ;
+  ; CT Test Cases
+  ;
+  ; Tuesday Feb 12, 2013 at 4:30am is the "now" for the tests
+  "10.06.16"
+  (datetime 2016 6 10)
+
+  "09.03."
+  (datetime 2013 3 9)
+
+  "16/4"
+  (datetime 2013 4 16)
+
+  "26/4"
+  (datetime 2013 4 26)
+
+  "Wednesday 02.03.2016"
+  (datetime 2016 3 2)
+
+  "from 10.06 to 16.06"
+  (datetime-interval [2013 6 10] [2013 6 16])
+
+  "from 11.06 to 16.06"
+  (datetime-interval [2013 6 11] [2013 6 16])
+
+  "from 01.06 to 16.06"
+  (datetime-interval [2013 6 1] [2013 6 16])
+
+  "from 01.01 to 16.01"
+  (datetime-interval [2013 1 1] [2013 1 16])
+
+  "from 21.11 to 25.11"
+  (datetime-interval [2013 11 21] [2013 11 26])
+
+  "from 01.06. to 16.06."
+  (datetime-interval [2013 6 1] [2013 6 17])
+
+  "22.45-04.25"
+  (datetime-interval [2013 2 12 22 45] [2013 2 13 4 26])
+
+  "0010-0410"
+  (datetime-interval [2013 2 13 0 10] [2013 2 13 4 11])
+
+  "1900-2110"
+  (datetime-interval [2013 2 12 19 0] [2013 2 12 21 11])
+
+  "1655-1950"
+  (datetime-interval [2013 2 12 16 55] [2013 2 12 19 51])
 )
