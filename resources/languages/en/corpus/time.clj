@@ -535,38 +535,40 @@
   "this evening"
   "today evening"
   "tonight"
-  (datetime-interval [2013 2 12 18] [2013 2 13 00])
+  (datetime-interval [2013 2 12 18] [2013 2 13 00] "evening")
 
   "this past weekend"
   (datetime-interval [2013 2 8 18] [2013 2 11 00])
 
   "tomorrow evening"
   ;"Wednesday evening"
+  (datetime-interval [2013 2 13 18] [2013 2 14 00] "evening")
+
   "tomorrow night"
-  (datetime-interval [2013 2 13 18] [2013 2 14 00])
+  (datetime-interval [2013 2 13 0] [2013 2 13 4] "night")
 
   "tomorrow lunch"
   "tomorrow at lunch"
-  (datetime-interval [2013 2 13 12] [2013 2 13 14])
+  (datetime-interval [2013 2 13 12] [2013 2 13 14] "noon")
 
   "yesterday evening"
-  (datetime-interval [2013 2 11 18] [2013 2 12 00])
+  (datetime-interval [2013 2 11 18] [2013 2 12 00] "evening")
 
   "this week-end"
   (datetime-interval [2013 2 15 18] [2013 2 18 00])
 
   "monday morning"
-  (datetime-interval [2013 2 18 4] [2013 2 18 12])
+  (datetime-interval [2013 2 18 4] [2013 2 18 12] "morning")
 
   "monday early in the morning"
   "monday early morning"
   "monday in the early hours of the morning"
-  (datetime-interval [2013 2 18 4] [2013 2 18 9])
+  (datetime-interval [2013 2 18 4] [2013 2 18 9] "morning")
 
   "february the 15th in the morning"
   "15 of february in the morning"
   "morning of the 15th of february"
-  (datetime-interval [2013 2 15 4] [2013 2 15 12])
+  (datetime-interval [2013 2 15 4] [2013 2 15 12] "morning")
 
 
   ; Intervals involving cycles
@@ -728,7 +730,7 @@
   (datetime 2013 2 12 11 :direction :before)
 
   "in the afternoon"
-  (datetime-interval [2013 2 12 12] [2013 2 12 19])
+  (datetime-interval [2013 2 12 12] [2013 2 12 19] "afternoon")
 
   "at 1:30pm"
   "1:30pm"
@@ -738,13 +740,13 @@
   (datetime 2013 2 12 4 45 0)
 
   "after lunch"
-  (datetime-interval [2013 2 12 13] [2013 2 12 17])
+  (datetime-interval [2013 2 12 13] [2013 2 12 17] "afternoon")
 
   "10:30"
   (datetime 2013 2 12 10 30)
 
   "morning" ;; how should we deal with fb mornings?
-  (datetime-interval [2013 2 12 4] [2013 2 12 12])
+  (datetime-interval [2013 2 12 4] [2013 2 12 12] "morning")
 
   "next monday"
   (datetime 2013 2 18 :day-of-week 1)
