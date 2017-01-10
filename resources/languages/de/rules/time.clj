@@ -476,7 +476,7 @@
   "tonight"
   #"(?i)heute? (am)? abends?"
   (assoc (intersect (cycle-nth :day 0)
-                    (interval (hour 18 false) (hour 0 false) false "tonight"))
+                    (interval (hour 18 false) (hour 0 false) false "evening"))
          :form :part-of-day) ; no :latent
 
   "after lunch"
