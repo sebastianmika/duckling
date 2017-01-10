@@ -444,8 +444,11 @@
   "two years ago"
   (datetime 2011 2)
 
-  "1954"
-  (datetime 1954)
+  "2010"
+  (datetime 2010)
+
+  "2030"
+  (datetime 2030)
 
   "7 days hence"
   (datetime 2013 2 19 4)

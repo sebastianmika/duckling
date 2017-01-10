@@ -269,16 +269,16 @@
   ; Outside of this, it's safer to consider it's latent
 
   "year"
-  (integer 1000 2100)
+  (integer 2010 2030)
   (year (:value %1))
 
-  "year (latent)"
-  (integer -10000 999)
-  (assoc (year (:value %1)) :latent true)
+  ;"year (latent)"
+  ;(integer -10000 999)
+  ;(assoc (year (:value %1)) :latent true)
 
-  "year (latent)"
-  (integer 2101 10000)
-  (assoc (year (:value %1)) :latent true)
+  ;"year (latent)"
+  ;(integer 2101 10000)
+  ;(assoc (year (:value %1)) :latent true)
 
     ; Day of month appears in the following context:
   ; - the nth
@@ -302,6 +302,10 @@
   "<named-day> <day-of-month> (ordinal)" ; Friday 18th
   [{:form :day-of-week} (dim :ordinal #(<= 1 (:value %) 31))]
   (intersect %1 (day-of-month (:value %2)))
+
+  "<named-month> <year>"  ; avoid interpreting january 2014 as 1.1. at 20:14 pm
+  [{:form :month} (integer 2010 2030)]
+  (intersect %1 (year (:value %2)))
 
   "<named-month> <day-of-month> (ordinal)" ; march 12th
   [{:form :month} (dim :ordinal #(<= 1 (:value %) 31))]

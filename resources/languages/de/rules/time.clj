@@ -264,16 +264,16 @@
   ; Outside of this, it's safer to consider it's latent
 
   "year"
-  (integer 1000 2100)
+  (integer 2010 2030)
   (year (:value %1))
 
-  "year (latent)"
-  (integer -10000 999)
-  (assoc (year (:value %1)) :latent true)
+  ;"year (latent)"
+  ;(integer -10000 999)
+  ;(assoc (year (:value %1)) :latent true)
 
-  "year (latent)"
-  (integer 2101 10000)
-  (assoc (year (:value %1)) :latent true)
+  ;"year (latent)"
+  ;(integer 2101 10000)
+  ;(assoc (year (:value %1)) :latent true)
 
     ; Day of month appears in the following context:
   ; - the nth
