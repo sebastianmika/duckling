@@ -17,7 +17,7 @@
   ;;
 
   "named-day"
-  #"(?i)luned[ìi]|lun?\."
+  #"(?i)luned[ìi]|lun?\.?"
   (day-of-week 1)
 
   "named-day"
@@ -29,27 +29,27 @@
   (day-of-week 3)
 
   "named-day"
-  #"(?i)gioved[iì]|gio\.?"
+  #"(?i)gioved[iì]|gio?\.?"
   (day-of-week 4)
 
   "named-day"
-  #"(?i)venerd[iì]|ven\.?"
+  #"(?i)venerd[iì]|ven?\.?"
   (day-of-week 5)
 
   "named-day"
-  #"(?i)sabato|sab\.?"
+  #"(?i)sabato|sab?\.?"
   (day-of-week 6)
 
   "named-day"
-  #"(?i)domenica|dom\.?"
+  #"(?i)domenica|dom?\.?"
   (day-of-week 7)
 
   "named-month"
-  #"(?i)gennaio|gene?\.?"
+  #"(?i)gennaio|genn?\.?"
   (month 1)
 
   "named-month"
-  #"(?i)febbraio|feb\.?"
+  #"(?i)febbraio|febb?\.?"
   (month 2)
 
   "named-month"
@@ -61,7 +61,7 @@
   (month 4)
 
   "named-month"
-  #"(?i)maggio|mag\.?"
+  #"(?i)maggio|magg?\.?"
   (month 5)
 
   "named-month"
@@ -116,11 +116,11 @@
   (month-day 1 6)
 
   "valentine's day"
-  #"(?i)san valentino|festa degli innamorati"
+  #"(?i)s(an|\.) valentino|festa degli innamorati"
   (month-day 2 14)
 
   "festa del papà"
-  #"(?i)festa del pap[aà]|(festa di )?san giuseppe"
+  #"(?i)festa del pap[aà]|(festa di )?s(an|\.) giuseppe"
   (month-day 3 19)
 
   "festa della liberazione"
@@ -156,71 +156,7 @@
   (month-day 12 8)
 
   "santo stefano"
-  #"(?i)santo stefano"
-  (month-day 12 26)
-
-  "Mother's Day";second Sunday in May.
-  #"(?i)festa della mamma"
-  (intersect (day-of-week 7) (month 5) (cycle-nth-after :week 1 (month-day 5 1)))
-
-  "christmas"
-  #"(?i)((il )?giorno di )?natale"
-  (month-day 12 25)
-
-  "christmas eve"
-  #"(?i)(la )?vigilia di natale"
-  (month-day 12 24)
-
-  "new year's eve"
-  #"(?i)((la )?vigilia di capodanno|san silvestro)"
-  (month-day 12 31)
-
-  "new year's day"
-  #"(?i)(capodanno|primo dell' ?anno)"
-  (month-day 1 1)
-
-  "epifania"
-  #"(?i)(epifania|befana)"
-  (month-day 1 6)
-
-  "valentine's day"
-  #"(?i)san valentino"
-  (month-day 2 14)
-
-  "festa del papà"
-  #"(?i)festa del pap[aà]|(festa di )?san giuseppe"
-  (month-day 3 19)
-
-  "festa della liberazione"
-  #"(?i)((festa|anniversario) della|la) liberazione"
-  (month-day 4 25)
-
-  "festa del lavoro"
-  #"(?i)festa del lavoro|(festa|giorno) dei lavoratori"
-  (month-day 5 1)
-
-  "festa della repubblica"
-  #"(?i)festa della repubblica"
-  (month-day 6 2)
-
-  "ferragosto"
-  #"(?i)ferragosto|assunzione"
-  (month-day 8 15)
-
-  "halloween day"
-  #"(?i)hall?owe?en"
-  (month-day 10 31)
-
-  "ognissanti"
-  #"(?i)(tutti i |ognis)santi"
-  (month-day 11 1)
-
-  "commemorazione dei defunti"
-  #"(?i)(giorno dei|commemorazione dei) (morti|defunti)"
-  (month-day 11 2)
-
-  "santo stefano"
-  #"(?i)santo stefano"
+  #"(?i)s(anto|\.) stefano"
   (month-day 12 26)
 
   "Mother's Day";second Sunday in May.
@@ -528,6 +464,10 @@
   [#"(?i)stanotte"]
   (assoc (intersect (cycle-nth :day 1) (interval (hour 0 false) (hour 4 false) false)) :form :part-of-day)
 
+  "domattina"
+  [#"(?i)domattina"]
+  (assoc (intersect (cycle-nth :day 1) (interval (hour 4 false) (hour 12 false) false)) :form :part-of-day)
+
   "<dim time> <part-of-day>" ; since "morning" "evening" etc. are latent, general time+time is blocked
   [(dim :time) {:form :part-of-day}]
   (intersect %1 %2)
@@ -615,10 +555,14 @@
     (merge {:precision "approximate"}))
 
 
+  "verso <part-of-day>" ; about
+  [#"(?i)verso( la| il)?" {:form :part-of-day}]
+  (merge %2 {:precision "approximate"})
+
   ; Intervals
 
   "dd-dd <month> (interval)"
-  [#"(?i)(?:dal(?:(?:le)? |l'))?(3[01]|[12]\d|0?[1-9])" #"(?i)\-|([fs]ino )?al(l')?" #"(3[01]|[12]\d|0?[1-9])" {:form :month}]
+  [#"(?i)(?:dal(?: |l'))?(3[01]|[12]\d|0?[1-9])" #"(?i)\-|([fs]ino )?al(l')?" #"(3[01]|[12]\d|0?[1-9])" {:form :month}]
   (interval (intersect %4 (day-of-month (Integer/parseInt (-> %1 :groups first))))
             (intersect %4 (day-of-month (Integer/parseInt (-> %3 :groups first))))
             true)
