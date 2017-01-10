@@ -436,29 +436,29 @@
 
   "heute abend"
   "am abend"
-  (datetime-interval [2013 2 12 18] [2013 2 13 00])
+  (datetime-interval [2013 2 12 18] [2013 2 13 00] "evening")
 
   "morgen abend"
   ;"Mittwoch abend"
-  (datetime-interval [2013 2 13 18] [2013 2 14 00])
+  (datetime-interval [2013 2 13 18] [2013 2 14 00] "evening")
 
   "morgen mittag"
   "morgen zu mittag"
-  (datetime-interval [2013 2 13 12] [2013 2 13 14])
+  (datetime-interval [2013 2 13 12] [2013 2 13 14] "noon")
 
   "gestern abend"
-  (datetime-interval [2013 2 11 18] [2013 2 12 00])
+  (datetime-interval [2013 2 11 18] [2013 2 12 00] "evening")
 
   "dieses wochenende"
   (datetime-interval [2013 2 15 18] [2013 2 18 00])
 
   "montag morgens"
-  (datetime-interval [2013 2 18 3] [2013 2 18 12])
+  (datetime-interval [2013 2 18 3] [2013 2 18 12] "morning")
 
   "morgens am 15. februar"
   "15. februar morgens"
   "am morgen des 15. februar"
-  (datetime-interval [2013 2 15 3] [2013 2 15 12])
+  (datetime-interval [2013 2 15 3] [2013 2 15 12] "morning")
 
 
   ; Intervals involving cycles
@@ -608,7 +608,7 @@
   (datetime 2013 2 12 11 :direction :before)
 
   "am nachmittag"
-  (datetime-interval [2013 2 12 12] [2013 2 12 19])
+  (datetime-interval [2013 2 12 12] [2013 2 12 19] "afternoon")
 
   "um 13:30 am nachmittag"
   "nachmittags um 1 uhr 30"
@@ -619,14 +619,14 @@
   (datetime 2013 2 12 4 45 0)
 
   "nach dem mittagessen"
-  (datetime-interval [2013 2 12 13] [2013 2 12 17])
+  (datetime-interval [2013 2 12 13] [2013 2 12 17] "afternoon")
 
   "10:30"
   (datetime 2013 2 12 10 30)
 
   "in der früh"
   "am morgen" ;; how should we deal with fb mornings?
-  (datetime-interval [2013 2 12 3] [2013 2 12 12])
+  (datetime-interval [2013 2 12 3] [2013 2 12 12] "morning")
 
   "nächsten montag"
   "kommenden montag"
@@ -682,7 +682,7 @@
   (datetime 2013 5 30)
 
   "(späten) Nachmittag"
-  (datetime-interval [2013 2 12 12] [2013 2 12 19])
+  (datetime-interval [2013 2 12 12] [2013 2 12 19] "afternoon")
 
   "01. August 2016"
   (datetime 2016 8 1)
@@ -718,7 +718,7 @@
   (datetime 2013 2 12 10 10)
 
   "01.03. nachmittags"
-  (datetime-interval [2013 3 1 12] [2013 3 1 19])
+  (datetime-interval [2013 3 1 12] [2013 3 1 19] "afternoon")
 
   "01.04. gegen 18Uhr"
   (datetime 2013 4 1 18)
@@ -753,10 +753,10 @@
   (datetime 2016 10 3)
 
   "03.12. abends"
-  (datetime-interval [2013 12 3 18] [2013 12 4])
+  (datetime-interval [2013 12 3 18] [2013 12 4] "evening")
 
   "03.02.2016 mittags"
-  (datetime-interval [2016 2 3 12] [2016 2 3 14])
+  (datetime-interval [2016 2 3 12] [2016 2 3 14] "noon")
 
   "9-10Uhr"
   (datetime-interval [2013 2 12 9] [2013 2 12 10]) 

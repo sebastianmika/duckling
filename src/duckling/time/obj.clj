@@ -85,20 +85,26 @@
 (defn interval
   "Builds a time interval between start of t1 and *start* of t2.
   The grain is the smallest of the args."
-  [t1 t2]
-  {:pre [(valid? t1) (valid? t2)]}
-  {:start (:start t1)
-   :grain (max-key grain-order (:grain t1) (:grain t2))
-   :end (:start t2)})
+  ([t1 t2]
+   (interval t1 t2 nil))
+  ([t1 t2 range-type]
+   {:pre [(valid? t1) (valid? t2)]}
+   {:start (:start t1)
+    :range-type range-type
+    :grain (max-key grain-order (:grain t1) (:grain t2))
+    :end (:start t2)}))
 
 (defn interval-start-end
   "Builds a time interval between start of t1 and *end* of t2.
   The grain is the smallest of the args."
-  [t1 t2]
-  {:pre [(valid? t1) (valid? t2)]}
-  {:start (:start t1)
-   :grain (max-key grain-order (:grain t1) (:grain t2))
-   :end (end t2)})
+  ([t1 t2]
+   (interval-start-end t1 t2 nil))
+  ([t1 t2 range-type]
+   {:pre [(valid? t1) (valid? t2)]}
+   {:start (:start t1)
+    :range-type range-type
+    :grain (max-key grain-order (:grain t1) (:grain t2))
+    :end (end t2)}))
 
 (defn intersect
   "With the special case of time grains, it's quite easy. Will need to generalize to

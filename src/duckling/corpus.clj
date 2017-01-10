@@ -31,16 +31,18 @@
 
 (defn datetime-interval
   "Creates a datetime interval checker function"
-  [from to]
-  (let [[start start-fields] (vec->date-and-map from)
-        [end end-fields] (vec->date-and-map to)
-        date (time/interval start end)]
-    (fn [context {:keys [value dim] :as token}]
-      (when-not
-        (and
-          (= :time dim)
-          (= value date))
-        [date value]))))
+  ([from to]
+   (datetime-interval from to nil))
+  ([from to range-type]
+   (let [[start start-fields] (vec->date-and-map from)
+         [end end-fields] (vec->date-and-map to)
+         date (time/interval start end range-type)]
+     (fn [context {:keys [value dim] :as token}]
+       (when-not
+           (and
+            (= :time dim)
+            (= value date))
+           [date value])))))
 
 (defn number
   "check if the token is a number equal to value.

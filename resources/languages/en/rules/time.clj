@@ -475,23 +475,27 @@
 
   "morning" ;; TODO "3am this morning" won't work since morning starts at 4...
   [#"(?i)(late\s+|early\s+)?morning"]
-  (assoc (interval (hour 4 false) (hour 12 false) false) :form :part-of-day :latent true)
+  (assoc (interval (hour 4 false) (hour 12 false) false "morning") :form :part-of-day :latent true)
 
   "early morning"
   [#"(?i)early ((in|hours of) the )?morning"]
-  (assoc (interval (hour 4 false) (hour 9 false) false) :form :part-of-day :latent true)
+  (assoc (interval (hour 4 false) (hour 9 false) false "morning") :form :part-of-day :latent true)
 
   "afternoon"
   [#"(?i)(late\s+|early\s+)?after ?noo?n"]
-  (assoc (interval (hour 12 false) (hour 19 false) false) :form :part-of-day :latent true)
+  (assoc (interval (hour 12 false) (hour 19 false) false "afternoon") :form :part-of-day :latent true)
 
-  "evening|night"
-  [#"(?i)(late\s+|early\s+)?(evening|night)"]
-  (assoc (interval (hour 18 false) (hour 0 false) false) :form :part-of-day :latent true)
+  "evening"
+  [#"(?i)(late\s+|early\s+)?evening"]
+  (assoc (interval (hour 18 false) (hour 0 false) false "evening") :form :part-of-day :latent true)
+
+  "night"
+  [#"(?i)(late\s+|early\s+)?night"]
+  (assoc (interval (hour 0 false) (hour 4 false) false "night") :form :part-of-day :latent true)
 
   "lunch"
   [#"(?i)(at )?lunch"]
-  (assoc (interval (hour 12 false) (hour 14 false) false) :form :part-of-day :latent true)
+  (assoc (interval (hour 12 false) (hour 14 false) false "noon") :form :part-of-day :latent true)
 
   "in|during the <part-of-day>" ;; removes latent
   [#"(?i)(in|during)( the)?" {:form :part-of-day}]
@@ -504,20 +508,20 @@
   "tonight"
   #"(?i)toni(ght|gth|te)"
   (assoc (intersect (cycle-nth :day 0)
-                    (interval (hour 18 false) (hour 0 false) false))
+                    (interval (hour 18 false) (hour 0 false) false "evening"))
          :form :part-of-day) ; no :latent
 
   "after lunch"
   #"(?i)after(-|\s)?lunch"
   (assoc (intersect (cycle-nth :day 0)
-                    (interval (hour 13 false) (hour 17 false) false))
+                    (interval (hour 13 false) (hour 17 false) false "afternoon"))
          :form :part-of-day) ; no :latent
 
 
   "after work"
   #"(?i)after(-|\s)?work"
   (assoc (intersect (cycle-nth :day 0)
-                    (interval (hour 17 false) (hour 21 false) false))
+                    (interval (hour 17 false) (hour 21 false) false "after work"))
          :form :part-of-day) ; no :latent
 
   "<time> <part-of-day>" ; since "morning" "evening" etc. are latent, general time+time is blocked

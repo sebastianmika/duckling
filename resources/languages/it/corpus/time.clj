@@ -30,6 +30,7 @@
 
   "martedì"
   "Martedì 19"
+  "ma 19"
   (datetime 2013 2 19)
 
   "l'altro ieri"
@@ -38,6 +39,7 @@
 
   "lunedi"
   "lu."
+  "lun"
   (datetime 2013 2 18 :day-of-week 1)
 
   "lunedi 18 febbraio"
@@ -135,19 +137,21 @@
   "la settimana scorsa"
   "la scorsa settimana"
   "nella scorsa settimana"
-  "nella settimana scorsa"
+  "della settimana scorsa"
   (datetime 2013 2 4 :grain :week)
 
   "la settimana prossima"
   "la prossima settimana"
   "nella prossima settimana"
+  "settimana prossima"
+  "prossima settimana"
   (datetime 2013 2 18 :grain :week)
 
   "il mese scorso"
   "nel mese scorso"
   "nel mese passato"
   "lo scorso mese"
-  "nello scorso mese"
+  "dello scorso mese"
   (datetime 2013 1)
 
   "il mese prossimo"
@@ -167,7 +171,7 @@
 
   "quarto trimestre 2018"
   "il quarto trimestre 2018"
-  "nel quarto trimestre 2018"
+  "del quarto trimestre 2018"
   (datetime 2018 10 1 :grain :quarter)
 
   "l'anno scorso"
@@ -209,7 +213,7 @@
   (datetime 2014 10 6 :grain :week)
 
   "la settimana del 6 ottobre"
-  "la settimana del 7 ottobre"
+  "la settimana del 7 ott"
   (datetime 2013 10 7 :grain :week)
 
   "l'ultimo giorno di ottobre 2015"
@@ -257,6 +261,9 @@
   "per le 15"
   "verso le 15"
   (datetime 2013 2 12 15) ;; :precision "approximate"
+
+  "verso sera"
+  (datetime-interval [2013 2 12 18] [2013 2 13 00]) ;; :precision "approximate"
 
   "3:00"
   "03:00"
@@ -440,6 +447,10 @@
   "in serata"
   "nella sera"
   (datetime-interval [2013 2 12 18] [2013 2 13 00])
+
+  "domani mattina"
+  "domattina"
+  (datetime-interval [2013 2 13 4] [2013 2 13 12])
 
   "in settimana"
   "per la settimana"
