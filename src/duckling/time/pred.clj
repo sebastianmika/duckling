@@ -335,13 +335,14 @@
   and ending at the start (inclusive-to? false) or end (inclusive-to? true)
   of the first pred-from time that follows the start of pred-from.
   Example: (intervals (day-of-week 1) (day-of-week 3) true)"
-  
-  [pred-from pred-to inclusive-to?]
-  (let [inter-fn (if inclusive-to? t/interval-start-end t/interval)
-        f (fn [t ctx] (let [slot (first (first (pred-to t ctx)))]
-                        (when slot
-                          (inter-fn t slot))))]
-    (seq-map f pred-from true)))
+  ([pred-from pred-to inclusive-to?]
+   (intervals pred-from pred-to inclusive-to? nil))
+  ([pred-from pred-to inclusive-to? range-type]
+   (let [inter-fn (if inclusive-to? t/interval-start-end t/interval)
+         f (fn [t ctx] (let [slot (first (first (pred-to t ctx)))]
+                         (when slot
+                           (inter-fn t slot range-type))))]
+     (seq-map f pred-from true))))
 
 (defn shift-duration
   "Shifts base-pred forward or backward ('two days after pred')

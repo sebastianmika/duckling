@@ -15,26 +15,29 @@
   (take 1 (pred/resolve token context)))
 
 (defn export-time-value
-  [{:keys [start end grain] :as value} direction date-fn]
-  (cond
-    (#{:before :after} direction)
-      (case direction
-        :before {:type "interval"
-                 :to   {:value (date-fn start)
-                        :grain grain}}
-        :after  {:type "interval"
-                 :from {:value (date-fn start)
-                        :grain grain}})
-    end
-      {:type "interval"
-       :from {:value (date-fn start)
-              :grain grain}
-       :to   {:value (date-fn end)
-              :grain grain}}
-    :else
-      {:type "value"
-       :value (date-fn start)
-       :grain grain}))
+  [{:keys [start end grain range-type] :as value} direction date-fn]
+  (merge
+   (cond
+     (#{:before :after} direction)
+     (case direction
+       :before {:type "interval"
+                :to   {:value (date-fn start)
+                       :grain grain}}
+       :after  {:type "interval"
+                :from {:value (date-fn start)
+                       :grain grain}})
+     end
+     {:type "interval"
+      :from {:value (date-fn start)
+             :grain grain}
+      :to   {:value (date-fn end)
+             :grain grain}}
+     :else
+     {:type "value"
+      :value (date-fn start)
+      :grain grain})
+   (if range-type {:range-type range-type}))
+  )
 
 (defn export-value
   "Given a token, returns its value for the outside world.
